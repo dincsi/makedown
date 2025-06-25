@@ -32,10 +32,11 @@ export QT_STYLE_OVERRIDE=kvantum
 ```
 
 ## Install
-Copy makedown anywhere in your PATH.
+- Copy makedown anywhere in your PATH,
+- set `THEMES_DIR` and `THEMES_DIR` if needed.
 
 ## Usage
 
 ```bash
-makedown THEME_NAME
+makedown THEME_NAME KVANTUM_THEME_NAME
 ```

@@ -7,6 +7,13 @@ if [ $# -eq 0 ]; then
 fi
 
 THEME_NAME="$1"
+# if second command line argument is given, use it as the kvantum theme name
+if [ $# -eq 2 ]; then
+    KVANTUM_THEME_NAME="$2"
+else
+    KVANTUM_THEME_NAME="$THEME_NAME"
+fi
+
 HOME_DIR="$HOME"
 THEMES_DIR="$HOME_DIR/.themes"
 CONFIG_DIR="$HOME_DIR/.config"
@@ -46,10 +53,7 @@ ln -s $THEMES_DIR/$THEME_NAME/assets $CONFIG_DIR/gtk-4.0/assets
 # We create and install a pack of the currently used theme by using stylepak
 # download: 
 
-stylepak install-user 
-
-#nevek összepárosítása
-KVANTUM_THEME_NAME=$THEME_NAME
+stylepak install-user
 
 # if theme_name is Colloid-ligh then set the Kvanum theme name to Colloid
 if [ "$THEME_NAME" == "Colloid-Light" ]; then
