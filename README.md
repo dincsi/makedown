@@ -47,7 +47,7 @@ makedown THEME_NAME KVANTUM_THEME_NAME
 Download: [GTK](https://github.com/vinceliuice/Colloid-gtk-theme) [Kvantum](https://github.com/vinceliuice/Colloid-kde)
 
 #### Yaru-*
-makedown suports Ubuntu Yaru (Orange) theme. *There is no kvantum theme for the modern color versions, therefore itis not fully supported.*
+makedown suports Ubuntu Yaru (Orange) theme. *There is no kvantum theme for the modern color versions, therefore it is not fully supported.*
 
 ```bash
 cp -r /usr/share/themes/Yaru ~/.themes/
@@ -58,4 +58,9 @@ Download: [Dracula](https://draculatheme.com/)
 
 #### WhiteSur
 Download:  [GTK](https://github.com/vinceliuice/WhiteSur-gtk-theme) [Kvantum](https://github.com/vinceliuice/WhiteSur-kde)
+
+### Create your own
+The bottleneck of modern desktop theming is that GTK4 does not support theming except some custum color and the buttons on the titlebar. Therefore I suggest to start with a theme that supports GTK4 and also GTK3. Copy it to your `.theme` folder than create or search for a correcponding kvantum theme and copy it to `.config/Kvantum` folder.
+
+Now you can use makedown to do the rest.
 
