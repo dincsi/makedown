@@ -2,7 +2,7 @@
 
 # Ellenőrizzük, hogy megadtak-e bemenő paramétert
 if [ $# -eq 0 ]; then
-    echo "USage: $0 <paraméter>"
+    echo "Usage: $0 <theme_name> [kvantum_theme_name]"
     exit 1
 fi
 
@@ -34,13 +34,16 @@ gsettings set org.gnome.desktop.interface gtk-theme "$THEME_NAME"
 rm -rf $CONFIG_DIR/gtk-4.0/gtk.css
 rm -rf $CONFIG_DIR/gtk-4.0/gtk-dark.css
 rm -rf $CONFIG_DIR/gtk-4.0/assets
+rm -rf $CONFIG_DIR/assets
 
 mkdir -p $CONFIG_DIR/gtk-4.0
 mkdir -p $CONFIG_DIR/gtk-4.0/assets
 
+
 ln -s $THEMES_DIR/$THEME_NAME/gtk-4.0/gtk.css $CONFIG_DIR/gtk-4.0/gtk.css
 ln -s $THEMES_DIR/$THEME_NAME/gtk-4.0/gtk-dark.css $CONFIG_DIR/gtk-4.0/gtk-dark.css
 ln -s $THEMES_DIR/$THEME_NAME/assets $CONFIG_DIR/gtk-4.0/assets
+ln -s $THEMES_DIR/$THEME_NAME/assets $CONFIG_DIR/assets
 
 ## Flatpak override for themes
 ## Needs root privileges but this can be run once
@@ -62,6 +65,10 @@ fi
 
 if [ "$THEME_NAME" == "WhiteSur-Light" ]; then
     KVANTUM_THEME_NAME="WhiteSur"
+fi
+
+if [ "$THEME_NAME" == "Yaru" ]; then
+    KVANTUM_THEME_NAME="KvYaru"
 fi
 
 if [ "$THEME_NAME" == "Yaru-blue" ]; then
