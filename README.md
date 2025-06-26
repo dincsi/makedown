@@ -43,6 +43,7 @@ makedown THEME_NAME KVANTUM_THEME_NAME
 ```
 ### Fully suported themes
 #### Colloid 
+![alt text](doc/img/Colloid-Light.png)
 Download: [GTK](https://github.com/vinceliuice/Colloid-gtk-theme) [Kvantum](https://github.com/vinceliuice/Colloid-kde)
 
 #### Yaru-*
@@ -52,6 +53,7 @@ makedown suports Ubuntu Yaru (Orange) theme. *There is no kvantum theme for the 
 cp -r /usr/share/themes/Yaru ~/.themes/
 ```
 #### Dracula
+
 Download: [Dracula](https://draculatheme.com/)
 
 #### WhiteSur
