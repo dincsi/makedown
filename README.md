@@ -1,6 +1,8 @@
 # MAKEDOWN - Makeup upside down 
 ## Uniform look on Linux systems
 
+![Nordic](doc/img/Nordic.png)
+
 Supports:
 - GNOME desktop
 - GTK 3
@@ -43,7 +45,7 @@ makedown THEME_NAME KVANTUM_THEME_NAME
 ```
 ### Fully suported themes
 #### Colloid 
-![alt text](doc/img/Colloid-Light.png)
+
 Download: [GTK](https://github.com/vinceliuice/Colloid-gtk-theme) [Kvantum](https://github.com/vinceliuice/Colloid-kde)
 
 #### Yaru-*
