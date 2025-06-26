@@ -1,6 +1,7 @@
-# MAKEDOWN - Make up upside down 
+# MAKEDOWN - Makeup upside down 
 ## Uniform look on Linux systems
 
+Supports:
 - GNOME desktop
 - GTK 3
 - GTK 4
@@ -40,3 +41,19 @@ export QT_STYLE_OVERRIDE=kvantum
 ```bash
 makedown THEME_NAME KVANTUM_THEME_NAME
 ```
+### Fully suported themes
+#### Colloid 
+Download: [GTK](https://github.com/vinceliuice/Colloid-gtk-theme) [Kvantum](https://github.com/vinceliuice/Colloid-kde)
+
+#### Yaru-*
+makedown suports Ubuntu Yaru (Orange) theme. *There is no kvantum theme for the modern color versions, therefore itis not fully supported.*
+
+```bash
+cp -r /usr/share/themes/Yaru ~/.themes/
+```
+#### Dracula
+Download: [Dracula](https://draculatheme.com/)
+
+#### WhiteSur
+Download:  [GTK](https://github.com/vinceliuice/WhiteSur-gtk-theme) [Kvantum](https://github.com/vinceliuice/WhiteSur-kde)
+
