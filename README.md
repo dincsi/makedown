@@ -23,9 +23,18 @@ A comprehensive theme management script that provides a unified theming experien
 - **Command-line interface for automation**
 
 ## Recommended Themes
-- Nordic [(GTK)](https://github.com/EliverLara/Nordic) | [(KDE)](https://github.com/EliverLara/Nordic/tree/master/Kvantum)
+
+Most available themes do not provide full support for all required components (GTK3, GTK4, Kvantum, GNOME Shell, etc.). It is common for a theme to look great in GTK3 applications but lack proper styling for GTK4 or Kvantum (Qt) apps, or vice versa. 
+
+Even the default GNOME (Adwaita) theme does not look exactly the same between GTK3 and GTK4 applications.
+
+For the most consistent experience, choose themes that explicitly mention support for all relevant toolkits and desktop environments, or consider mixing and matching similar-looking themes for GTK and Qt. Always review the theme's documentation and test it on your system to ensure it meets your needs.
+
+However, the following themes offer excellent compatibility and consistent appearance across all supported toolkits and environments.
+
+- Nordic [(GTK)](https://github.com/EliverLara/Nordic) | [(KDE)](https://github.com/EliverLara/Nordic/tree/master/kde/kvantum)
 - Colloid [(GTK)](https://github.com/vinceliuice/Colloid-gtk-theme) | [(KDE)](https://github.com/vinceliuice/Colloid-kde)
-- Dracula [(GTK)](https://github.com/dracula/gtk) | [(KDE)](https://github.com/dracula/kvantum)
+- Dracula [(GTK)](https://github.com/dracula/gtk) | [(KDE)](https://github.com/dracula/gtk/tree/master/kde/kvantum)
 - WhiteSur [(GTK)](https://github.com/vinceliuice/WhiteSur-gtk-theme) | [(KDE)](https://github.com/vinceliuice/WhiteSur-kde)
 
 ## Prerequisites
@@ -71,7 +80,7 @@ export QT_STYLE_OVERRIDE=kvantum
 ### Method 2: Local Installation
 ```bash
 # Clone or download the repository
-git clone <repository-url>
+git clone https://github.com/dincsi/makedown.git
 cd makedown
 
 # Copy to local bin directory
