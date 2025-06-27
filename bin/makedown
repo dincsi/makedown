@@ -1,24 +1,43 @@
 #!/bin/bash
 
-# Ellenőrizzük, hogy megadtak-e bemenő paramétert
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <theme_name> [kvantum_theme_name]"
-    exit 1
-fi
-
-THEME_NAME="$1"
-# if second command line argument is given, use it as the kvantum theme name
-if [ $# -eq 2 ]; then
-    KVANTUM_THEME_NAME="$2"
-else
-    KVANTUM_THEME_NAME="$THEME_NAME"
-fi
-
 HOME_DIR="$HOME"
 THEMES_DIR="$HOME_DIR/.themes"
 CONFIG_DIR="$HOME_DIR/.config"
 
+# Ellenőrizzük, hogy megadtak-e bemenő paramétert
+if [ $# -eq 0 ]; then
+    # Create list from the names of the THEMES_DIR folder
+    THEMES=$(ls $THEMES_DIR)
+    THEME_NAME=$(zenity --list \
+    --title="Theme Selection" \
+    --text="Select a theme:" \
+    --column="Themes" $THEMES)
 
+    # Ha a felhasználó nem választott témát, akkor kilépünk
+    if [ -z "$THEME_NAME" ]; then
+        echo "No theme selected. Exiting."
+        exit 1
+    fi
+
+    #KVANTUM_THEMES=$(ls ~/.config/Kvantum | grep -i "kvantum")
+    KVANTUM_THEMES=$(ls /usr/share/Kvantum)
+    KVANTUM_THEME_NAME=$(zenity --list \
+    --title="Kvantum Theme Selection" \
+    --text="Select a Kvantum theme (optional):" \
+    --column="Kvantum Themes" $KVANTUM_THEMES) 
+
+else
+    # Ha van bemenő paraméter, akkor azt használjuk témának
+    THEME_NAME="$1"
+fi
+
+# if second command line argument is given, use it as the kvantum theme name
+if [ $# -eq 2 ]; then
+    KVANTUM_THEME_NAME="$2"
+fi
+
+echo "Selected theme: $THEME_NAME"
+echo "Selected Kvantum theme: $KVANTUM_THEME_NAME"
 
 # GNOME Théme beállítása
 gsettings set org.gnome.desktop.interface gtk-theme "$THEME_NAME"
