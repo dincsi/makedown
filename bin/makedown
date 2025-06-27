@@ -1,37 +1,68 @@
 #!/bin/bash
 
+# makedown - Theme changer script for GNOME desktop environments
+# Copyright (C) 2025
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# Theme changer script for GNOME desktop environments
+# Supports GTK themes, Kvantum themes, and flatpak theming
+
 HOME_DIR="$HOME"
 THEMES_DIR="$HOME_DIR/.themes"
 CONFIG_DIR="$HOME_DIR/.config"
 
-# Ellenőrizzük, hogy megadtak-e bemenő paramétert
+# Check if input parameters were provided
 if [ $# -eq 0 ]; then
-    # Create list from the names of the THEMES_DIR folder
-    THEMES=$(ls $THEMES_DIR)
+    # Create list from the names of the THEMES_DIR folder and system themes
+    THEMES=$(ls -d $THEMES_DIR/*/ 2>/dev/null | xargs -n 1 basename)
+    THEMES+=" $(ls -d /usr/share/themes/*/ 2>/dev/null | xargs -n 1 basename)"
+    
+    # Show theme selection dialog
     THEME_NAME=$(zenity --list \
     --title="Theme Selection" \
     --text="Select a theme:" \
     --column="Themes" $THEMES)
 
-    # Ha a felhasználó nem választott témát, akkor kilépünk
+    # Exit if no theme was selected
     if [ -z "$THEME_NAME" ]; then
         echo "No theme selected. Exiting."
         exit 1
     fi
 
-    #KVANTUM_THEMES=$(ls ~/.config/Kvantum | grep -i "kvantum")
-    KVANTUM_THEMES=$(ls /usr/share/Kvantum)
+    # Collect available Kvantum themes from user and system directories
+    KVANTUM_THEMES=$(ls -d ~/.config/Kvantum/*/ 2>/dev/null | xargs -n 1 basename)
+    KVANTUM_THEMES+=" $(ls -d /usr/share/Kvantum/*/ 2>/dev/null | xargs -n 1 basename)"
+    KVANTUM_THEMES=$(echo "$KVANTUM_THEMES" | sort)
+
+    # Filter Kvantum themes that match the selected GTK theme name
+    if [[ "$KVANTUM_THEMES" == *"$THEME_NAME"* ]]; then
+        KVANTUM_THEMES=$(echo "$KVANTUM_THEMES" | grep "$THEME_NAME")
+    fi
+    
+    # Show Kvantum theme selection dialog
     KVANTUM_THEME_NAME=$(zenity --list \
     --title="Kvantum Theme Selection" \
-    --text="Select a Kvantum theme (optional):" \
+    --text="Select a Kvantum theme:" \
     --column="Kvantum Themes" $KVANTUM_THEMES) 
 
 else
-    # Ha van bemenő paraméter, akkor azt használjuk témának
+    # Use first command line argument as theme name
     THEME_NAME="$1"
 fi
 
-# if second command line argument is given, use it as the kvantum theme name
+# Use second command line argument as Kvantum theme name if provided
 if [ $# -eq 2 ]; then
     KVANTUM_THEME_NAME="$2"
 fi
@@ -39,61 +70,71 @@ fi
 echo "Selected theme: $THEME_NAME"
 echo "Selected Kvantum theme: $KVANTUM_THEME_NAME"
 
-# GNOME Théme beállítása
+# Apply GTK theme settings via gsettings
 gsettings set org.gnome.desktop.interface gtk-theme "$THEME_NAME"
 gsettings set org.gnome.desktop.wm.preferences theme "$THEME_NAME"  
 
-# GNOME Shell Théme beállítása
-gsettings set org.gnome.shell.extensions.user-theme name "$THEME_NAME"
+# Try to set GNOME Shell theme, with fallback to dconf if gsettings fails
+if ! gsettings set org.gnome.shell.extensions.user-theme name "$THEME_NAME" 2>/dev/null; then
+    if command -v dconf >/dev/null 2>&1; then
+        dconf write /org/gnome/shell/extensions/user-theme/name "'$THEME_NAME'" 2>/dev/null
+    fi
+fi
 
-# GTK3 Théme beállítása
-gsettings set org.gnome.desktop.interface gtk-theme "$THEME_NAME"
-
-#removing old symlinks
+# Remove old GTK4 symlinks to prevent conflicts
 rm -rf $CONFIG_DIR/gtk-4.0/gtk.css
 rm -rf $CONFIG_DIR/gtk-4.0/gtk-dark.css
 rm -rf $CONFIG_DIR/gtk-4.0/assets
 rm -rf $CONFIG_DIR/assets
 
+# Create GTK4 config directories
 mkdir -p $CONFIG_DIR/gtk-4.0
 mkdir -p $CONFIG_DIR/gtk-4.0/assets
 
-
+# Create symlinks for GTK4 theme files
 ln -s $THEMES_DIR/$THEME_NAME/gtk-4.0/gtk.css $CONFIG_DIR/gtk-4.0/gtk.css
 ln -s $THEMES_DIR/$THEME_NAME/gtk-4.0/gtk-dark.css $CONFIG_DIR/gtk-4.0/gtk-dark.css
 ln -s $THEMES_DIR/$THEME_NAME/assets $CONFIG_DIR/gtk-4.0/assets
 ln -s $THEMES_DIR/$THEME_NAME/assets $CONFIG_DIR/assets
 
-## Flatpak override for themes
-## Needs root privileges but this can be run once
+## Flatpak theme configuration
+## Note: Root privileges required for initial setup (can be run once)
 
+# Uncomment these lines to enable flatpak theme access (requires root)
 # flatpak override --filesystem=xdg-config/gtk-3.0 && flatpak override --filesystem=xdg-config/gtk-4.0
 # flatpak override --filesystem=$THEMES_DIR
 
-# Flatpak GTK3 Théme beállítása
-# If there is no downloadable theme flatpak will user the default
-# We create and install a pack of the currently used theme by using stylepak
-# download: 
+# Apply GTK themes to Flatpak applications
+# If no downloadable theme is available, Flatpak will use the default
+# We create and install a theme pack using stylepak
+# Download stylepak from: https://github.com/refi64/stylepak
 
 stylepak install-user
 
-# if theme_name is Colloid-ligh then set the Kvanum theme name to Colloid
-if [ "$THEME_NAME" == "Colloid-Light" ]; then
-    KVANTUM_THEME_NAME="Colloid"
+# Auto-detect Kvantum theme based on GTK theme name if not explicitly set
+if [ -z "$KVANTUM_THEME_NAME" ]; then
+    # Map common GTK theme names to their corresponding Kvantum themes
+    if [ "$THEME_NAME" == "Colloid-Light" ]; then
+        KVANTUM_THEME_NAME="Colloid"
+    fi
+
+    if [ "$THEME_NAME" == "WhiteSur-Light" ]; then
+        KVANTUM_THEME_NAME="WhiteSur"
+    fi
+
+    if [ "$THEME_NAME" == "Yaru" ]; then
+        KVANTUM_THEME_NAME="KvYaru"
+    fi
+
+    if [ "$THEME_NAME" == "Yaru-blue" ]; then
+        KVANTUM_THEME_NAME="KvYaru-blue"
+    fi
 fi
 
-if [ "$THEME_NAME" == "WhiteSur-Light" ]; then
-    KVANTUM_THEME_NAME="WhiteSur"
+# Apply Kvantum theme if a theme name is available
+if [ -n "$KVANTUM_THEME_NAME" ]; then
+    kvantummanager --set $KVANTUM_THEME_NAME
 fi
 
-if [ "$THEME_NAME" == "Yaru" ]; then
-    KVANTUM_THEME_NAME="KvYaru"
-fi
-
-if [ "$THEME_NAME" == "Yaru-blue" ]; then
-    KVANTUM_THEME_NAME="KvYaru-blue"
-fi
-
-# kvantum téma beállítása
-kvantummanager --set $KVANTUM_THEME_NAME
-
+# Show success notification with theme information
+zenity --info --text="Theme changed successfully to GTK Theme: $THEME_NAME and Kvantum Theme: $KVANTUM_THEME_NAME\n\nNote: Some changes will not apply until you log out.\nYou can also try restarting the session (ALT+F2 and type 'r')." --title="Theme Change Successful"
