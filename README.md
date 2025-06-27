@@ -92,10 +92,19 @@ Launch the GUI theme selector:
 makedown
 ```
 
+
 This will:
 1. Show a dialog to select from available GTK themes
+
+![Theme Selector](doc/img/theme-selector.png)
+
 2. Automatically filter and show matching Kvantum themes if exists
+
+![Kvantum Theme Selector](doc/img/kvantum-theme-selector.png)
+
 3. Apply all theme settings across the system
+
+![Success message](doc/img/success-message.png)
 
 ### Command Line Mode
 If you know exactly which themes to apply:
