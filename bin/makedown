@@ -23,6 +23,31 @@ HOME_DIR="$HOME"
 THEMES_DIR="$HOME_DIR/.themes"
 CONFIG_DIR="$HOME_DIR/.config"
 
+if ! command -v flatpak >/dev/null 2>&1; then
+    echo "Flatpak is not installed. Skipping Flatpak theme configuration."
+else
+    # Check if flatpak overrides for GTK themes are set
+    if ! flatpak override --show | grep -q "xdg-config/gtk-3.01" || ! flatpak override --show | grep -q "xdg-config/gtk-4.0"; then
+        echo "Setting Flatpak overrides for GTK themes..."
+        # Use pkexec to run flatpak override commands with root privileges
+        # or sudo if pkexec is not available
+        if command -v pkexec >/dev/null 2>&1; then
+            pkexec flatpak override --filesystem=xdg-config/gtk-3.0
+            pkexec flatpak override --filesystem=xdg-config/gtk-4.0
+        else
+            echo "pkexec not found, using sudo instead."
+            sudo flatpak override --filesystem=xdg-config/gtk-3.0
+            sudo flatpak override --filesystem=xdg-config/gtk-4.0
+        fi
+
+    fi
+
+    if ! flatpak override --show | grep -q "$THEMES_DIR"; then
+        echo "Setting Flatpak override for themes directory..."
+        pkexec flatpak override --filesystem=$THEMES_DIR
+    fi
+fi
+
 # Check if input parameters were provided
 if [ $# -eq 0 ]; then
     # Create list from the names of the THEMES_DIR folder and system themes
