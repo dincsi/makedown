@@ -46,13 +46,15 @@ However, the following themes offer excellent compatibility and consistent appea
 - `stylepak` - For Flatpak theme generation (optional)
 
 ### Flatpak Configuration
-To achieve uniform theming for Flatpak applications, you need to create filesystem overrides:
-
-```bash
-sudo flatpak override --filesystem=xdg-config/gtk-3.0
-sudo flatpak override --filesystem=xdg-config/gtk-4.0
-sudo flatpak override --filesystem=$HOME/.themes
+**makedown** tries to set some nescessary flatpak overrides if they are not set, already: 
 ```
+filesystem=xdg-config/gtk-3.0
+filesystem=xdg-config/gtk-4.0
+filesystem=$THEMES_DIR
+```
+
+These operations require root (administrator) privileges.
+If you do not have root access, please contact your system administrator to perform these actions for you.
 
 ### Stylepak Setup
 If your desired theme doesn't have a Flatpak pack, **makedown** can create GTK3 packs on-the-fly using stylepak:
@@ -177,6 +179,7 @@ A complete theme should include:
 - **Flatpak apps not themed**: Ensure flatpak overrides are set correctly
 - **Qt apps not themed**: Verify Kvantum environment variables are set
 - **GNOME Shell theme not working**: Install and enable the User Themes extension
+- **No titlebar buttons on flatpak Thunderbird**: Set `mail.tabs.drawInTitlebar` to false
 
 ### Manual Session Restart
 Some theme changes require a session restart. You can:
