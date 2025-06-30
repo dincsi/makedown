@@ -27,7 +27,7 @@ if ! command -v flatpak >/dev/null 2>&1; then
     echo "Flatpak is not installed. Skipping Flatpak theme configuration."
 else
     # Check if flatpak overrides for GTK themes are set
-    if ! flatpak override --show | grep -q "xdg-config/gtk-3.01" || ! flatpak override --show | grep -q "xdg-config/gtk-4.0"; then
+    if ! flatpak override --show | grep -q "xdg-config/gtk-3.0" || ! flatpak override --show | grep -q "xdg-config/gtk-4.0"; then
         echo "Setting Flatpak overrides for GTK themes..."
         # Use pkexec to run flatpak override commands with root privileges
         # or sudo if pkexec is not available
