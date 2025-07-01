@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Makedown
+Comment=Theming Solution for Linux Desktop 
+Exec=makedown
+Icon=makedown
+Terminal=false
+Categories=Utility;

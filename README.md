@@ -1,5 +1,8 @@
 # **makedown** (makeup upside down)
-## Uniform theming solution for Linux desktop systems
+
+![icon](share/pixmaps/makedown.png)
+
+## Theming Solution for Linux Desktop
 
 ![Nordic](doc/img/Nordic.png)
 *Example: Nordic theme applied consistently across GTK and Qt applications*
@@ -77,7 +80,7 @@ export QT_STYLE_OVERRIDE=kvantum
 ### Method 1: Manual Installation
 1. Copy the `makedown` script to any directory in your `$PATH` (e.g., `/usr/local/bin/` or `~/bin/`)
 2. Make it executable: `chmod +x makedown`
-3. Optionally, modify the `THEMES_DIR` and `CONFIG_DIR` variables in the script if you use custom locations
+
 
 ### Method 2: Local Installation
 ```bash
@@ -94,6 +97,20 @@ chmod +x ~/bin/makedown
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
+
+### Optional Steps
+1. If you want to add a desktop icon/launcher:
+    - Copy the `share/applications/makedown.desktop` file to your local applications directory:
+      ```bash
+      mkdir -p ~/.local/share/applications
+      cp share/applications/makedown.desktop ~/.local/share/applications/
+      ```
+    - Copy the `share/pixmaps/makedown.png` icon file to your local pixmaps directory:
+        ```bash
+        mkdir -p ~/.local/share/icons
+        cp share/pixmaps/makedown.png ~/.local/share/icons/
+        ```
+2. You can modify the `THEMES_DIR` and `CONFIG_DIR` variables in the script if you use custom locations
 
 ## Usage
 
