@@ -1,0 +1,33 @@
+name: Build Flatpak Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-flatpak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up flatpak
+        uses: flatpak/flatpak-github-actions/setup-flatpak@v5
+        with:
+          flatpak-builder: true
+
+      - name: Build Flatpak
+        run: |
+          flatpak-builder --force-clean build-dir flatpak/org.makedown.Makedown.yaml
+
+      - name: Bundle Flatpak
+        run: |
+          flatpak build-bundle build-dir makedown.flatpak org.makedown.Makedown
+
+      - name: Upload Flatpak artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: makedown-flatpak
+          path: makedown.flatpak

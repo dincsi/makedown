@@ -1,0 +1,24 @@
+app-id: org.makedown.Makedown
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+command: makedown
+modules:
+  - name: makedown
+    buildsystem: simple
+    build-commands:
+      - install -D ../../bin/makedown /app/bin/makedown
+    sources:
+      - type: file
+        path: ../../bin/makedown
+finish-args:
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --filesystem=home
+  - --filesystem=xdg-config/gtk-3.0:ro
+  - --filesystem=xdg-config/gtk-4.0:ro
+  - --filesystem=~/.themes:ro
+  - --filesystem=xdg-config/Kvantum:ro
+  - --filesystem=/usr/share/themes:ro
+  - --filesystem=/usr/share/Kvantum:ro
+  - --filesystem=xdg-run/dconf

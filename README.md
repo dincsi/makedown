@@ -1,7 +1,4 @@
 # **makedown** (makeup upside down)
-
-![icon](share/pixmaps/makedown.png)
-
 ## Theming Solution for Linux Desktop
 
 ![Nordic](doc/img/Nordic.png)
@@ -115,11 +112,13 @@ source ~/.bashrc
 ## Usage
 
 ### Interactive Mode (Recommended)
-Launch the GUI theme selector:
+Launch the GUI theme selector in terminal:
 ```bash
 makedown
 ```
+or click on the makedown icon:
 
+![appicon_gnome](doc/img/app-icon-gnome.png)
 
 This will:
 1. Show a dialog to select from available GTK themes
