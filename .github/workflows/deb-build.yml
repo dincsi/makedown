@@ -36,10 +36,10 @@ Section: utils
 Priority: optional
 Architecture: all
 Depends: zenity, gsettings-desktop-schemas, kvantummanager, flatpak
-Maintainer: Baráth Gábor <dincsi@gmail.com>
+Maintainer: dincsi <dincsi@gmail.com>
 Description: Theming Solution for Linux Desktop (GTK, Qt, Flatpak)
  A comprehensive theme management script that provides a unified theming experience across different desktop environments and applications on Linux systems.
- EOF
+EOF:   
 
       - name: Build .deb package
         run: |
