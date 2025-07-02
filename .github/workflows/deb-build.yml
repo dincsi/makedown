@@ -15,30 +15,29 @@ jobs:
 
       - name: Set up build directories
         run: |
-          mkdir -p makedown_deb/DEBIAN
-          mkdir -p makedown_deb/usr/bin
-          mkdir -p makedown_deb/usr/share/applications
-          mkdir -p makedown_deb/usr/share/pixmaps
+          mkdir -p makedown/DEBIAN
+          mkdir -p makedown/usr/bin
+          mkdir -p makedown/usr/share/applications
+          mkdir -p makedown/usr/share/pixmaps
 
       - name: Copy files
         run: |
-          cp bin/makedown makedown_deb/usr/bin/makedown
-          chmod +x makedown_deb/usr/bin/makedown
-          cp share/applications/makedown.desktop makedown_deb/usr/share/applications/makedown.desktop
-          cp share/pixmaps/makedown.png makedown_deb/usr/share/pixmaps/makedown.png
+          cp bin/makedown makedown/usr/bin/makedown
+          chmod +x makedown/usr/bin/makedown
+          cp share/applications/makedown.desktop makedown/usr/share/applications/makedown.desktop
+          cp share/pixmaps/makedown.png makedown/usr/share/pixmaps/makedown.png
 
       - name: Create control file
         run: |
-          cp debian/control makedown_deb/DEBIAN/control
-          chmod 644 makedown_deb/DEBIAN/control
+          cp debian/control makedown/DEBIAN/control
+          chmod 644 makedown/DEBIAN/control
  
-
       - name: Build .deb package
         run: |
-          dpkg-deb --build makedown_deb
+          dpkg-deb --build makedown
 
-      - name: Upload .deb artifact
-        uses: actions/upload-release-asset@v1
+      - name: Upload .deb to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
         with:
-          name: makedown
-          path: makedown.deb
+          files: makedown.deb
