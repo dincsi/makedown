@@ -36,8 +36,13 @@ jobs:
         run: |
           dpkg-deb --build makedown
 
-      - name: Upload .deb to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
+      - name: Upload .deb as release asset
+        uses: softprops/action-gh-release@v1
         with:
           files: makedown.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rename .deb for release
+        run: mv makedown.deb makedown_${{ github.ref_name }}.deb
+        if: always()
