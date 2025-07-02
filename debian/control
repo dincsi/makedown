@@ -1,0 +1,9 @@
+Package: makedown
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: all
+Depends: zenity, gsettings-desktop-schemas, kvantummanager, flatpak
+Maintainer: dincsi <dincsi@gmail.com>
+Description: Theming Solution for Linux Desktop (GTK, Qt, Flatpak)
+ A comprehensive theme management script that provides a unified theming experience across different desktop environments and applications on Linux systems.
