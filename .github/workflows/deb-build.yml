@@ -27,12 +27,6 @@ jobs:
           cp share/applications/makedown.desktop makedown/usr/share/applications/makedown.desktop
           cp share/pixmaps/makedown.png makedown/usr/share/pixmaps/makedown.png
 
-      - name: Copy screenshots
-        run: |
-          mkdir -p makedown/usr/share/doc/makedown/screenshots
-          cp doc/img/Nordic.png makedown/usr/share/doc/makedown/screenshots/
-          cp doc/img/theme-selector.png makedown/usr/share/doc/makedown/screenshots/
-
       - name: Create control file
         run: |
           cp debian/control makedown/DEBIAN/control

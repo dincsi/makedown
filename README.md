@@ -95,14 +95,6 @@ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### Method 3: Install from .deb package (Recommended for Ubuntu/Debian)
-1. Go to the [Releases page](https://github.com/dincsi/makedown/releases) and download the latest `makedown.deb` file.
-2. Install the package with:
-   ```bash
-   sudo dpkg -i makedown.deb
-   sudo apt-get install -f  # (optional, to fix dependencies)
-   ```
-
 ### Optional Steps
 1. If you want to add a desktop icon/launcher:
     - Copy the `share/applications/makedown.desktop` file to your local applications directory:
@@ -116,6 +108,14 @@ source ~/.bashrc
         cp share/pixmaps/makedown.png ~/.local/share/icons/
         ```
 2. You can modify the `THEMES_DIR` and `CONFIG_DIR` variables in the script if you use custom locations
+
+### Method 3: Install from .deb package (Recommended for Ubuntu/Debian)
+1. Go to the [Releases page](https://github.com/dincsi/makedown/releases) and download the latest `makedown.deb` file.
+2. Install the package with:
+   ```bash
+   sudo dpkg -i makedown.deb
+   sudo apt-get install -f  # (optional, to fix dependencies)
+   ```
 
 ## Usage
 
