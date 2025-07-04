@@ -1,10 +1,15 @@
 # **makedown** (makeup upside down)
-## Theming Solution for Linux Desktop
 
-![Nordic](doc/img/nordic.png)
-*Example: Nordic theme applied consistently across GTK and Qt applications*
+**A comprehensive theme management script that provides a unified theming experience across different desktop environments and applications on Linux systems.**
 
-A comprehensive theme management script that provides a unified theming experience across different desktop environments and applications on Linux systems.
+![Colloid](doc/img/colloid.png.webp)
+*Example1: Colloid-Light theme applied consistently across GTK and Qt applications*
+
+![Nordic](doc/img/nordic.png.webp)
+*Example2: Nordic theme applied consistently across GTK and Qt applications*
+
+![Dracula](doc/img/dracula.png.webp)
+*Example3: Dracula theme applied consistently across GTK and Qt applications*
 
 ## Features
 
