@@ -50,10 +50,15 @@ fi
 
 # Check if input parameters were provided
 if [ $# -eq 0 ]; then
+    
     # Create list from the names of the THEMES_DIR folder and system themes
     THEMES=$(ls -d $THEMES_DIR/*/ 2>/dev/null | xargs -n 1 basename)
     THEMES+=" $(ls -d /usr/share/themes/*/ 2>/dev/null | xargs -n 1 basename)"
-    THEMES=$(echo "$THEMES" | sort)
+
+    # Sort (ABC and case insensitive) and display duplicates only once
+    # This will ensure that if a theme is available in both user and system directories,
+    # it will only be listed once in the selection dialog.
+    THEMES=$(echo "$THEMES" | sort -f | uniq)
     
     # Show theme selection dialog
     THEME_NAME=$(zenity --list \
@@ -70,7 +75,12 @@ if [ $# -eq 0 ]; then
     # Collect available Kvantum themes from user and system directories
     KVANTUM_THEMES=$(ls -d ~/.config/Kvantum/*/ 2>/dev/null | xargs -n 1 basename)
     KVANTUM_THEMES+=" $(ls -d /usr/share/Kvantum/*/ 2>/dev/null | xargs -n 1 basename)"
-    KVANTUM_THEMES=$(echo "$KVANTUM_THEMES" | sort)
+
+    # Sort (ABC and case insensitive) and display duplicates only once
+    # This will ensure that if a theme is available in both user and system directories,
+    # it will only be listed once in the selection dialog.
+
+    KVANTUM_THEMES=$(echo "$KVANTUM_THEMES" | sort -f | uniq)
 
     # Filter Kvantum themes that match the selected GTK theme name
     if [[ "$KVANTUM_THEMES" == *"$THEME_NAME"* ]]; then
