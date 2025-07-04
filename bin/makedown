@@ -51,14 +51,13 @@ fi
 # Check if input parameters were provided
 if [ $# -eq 0 ]; then
     
-    # Create list from the names of the THEMES_DIR folder and system themes
-    THEMES=$(ls -d $THEMES_DIR/*/ 2>/dev/null | xargs -n 1 basename)
-    THEMES+=" $(ls -d /usr/share/themes/*/ 2>/dev/null | xargs -n 1 basename)"
-
-    # Sort (ABC and case insensitive) and display duplicates only once
-    # This will ensure that if a theme is available in both user and system directories,
-    # it will only be listed once in the selection dialog.
-    THEMES=$(echo "$THEMES" | sort -f | uniq)
+    # Only list themes that have a gtk-4.0 directory
+    THEMES=""
+    for dir in $THEMES_DIR/*/ /usr/share/themes/*/; do
+        [ -d "$dir/gtk-4.0" ] && THEMES+="$(basename "$dir")\n"
+    done
+    # Sort ascennding and remove duplicates
+    THEMES=$(echo -e "$THEMES" | sort -f | uniq)
     
     # Show theme selection dialog
     THEME_NAME=$(zenity --list \
