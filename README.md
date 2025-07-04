@@ -1,7 +1,7 @@
 # **makedown** (makeup upside down)
 ## Theming Solution for Linux Desktop
 
-![Nordic](doc/img/Nordic.png)
+![Nordic](doc/img/nordic.png)
 *Example: Nordic theme applied consistently across GTK and Qt applications*
 
 A comprehensive theme management script that provides a unified theming experience across different desktop environments and applications on Linux systems.

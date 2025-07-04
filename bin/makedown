@@ -53,6 +53,7 @@ if [ $# -eq 0 ]; then
     # Create list from the names of the THEMES_DIR folder and system themes
     THEMES=$(ls -d $THEMES_DIR/*/ 2>/dev/null | xargs -n 1 basename)
     THEMES+=" $(ls -d /usr/share/themes/*/ 2>/dev/null | xargs -n 1 basename)"
+    THEMES=$(echo "$THEMES" | sort)
     
     # Show theme selection dialog
     THEME_NAME=$(zenity --list \
@@ -94,6 +95,36 @@ fi
 
 echo "Selected theme: $THEME_NAME"
 echo "Selected Kvantum theme: $KVANTUM_THEME_NAME"
+
+# If selected theme is not in THEMES_DIR copy it there
+if [ ! -d "$THEMES_DIR/$THEME_NAME" ]; then
+    echo "Theme '$THEME_NAME' not found in '$THEMES_DIR'. Attempting to copy it from system themes..."
+    # Check if the theme exists in system themes
+    if [ -d "/usr/share/themes/$THEME_NAME" ]; then
+        # Copy the theme to user's themes directory
+        mkdir -p "$THEMES_DIR"
+        cp -r "/usr/share/themes/$THEME_NAME" "$THEMES_DIR/"
+        echo "Theme '$THEME_NAME' copied to '$THEMES_DIR'."
+    else
+        echo "Theme '$THEME_NAME' not found in system themes. Please install it or provide a valid theme name."
+        exit 1
+    fi
+fi
+
+# if selected Kvantum theme is not in ~/.config/Kvantum copy it there
+if [ -n "$KVANTUM_THEME_NAME" ] && [ ! -d "$HOME_DIR/.config/Kvantum/$KVANTUM_THEME_NAME" ]; then
+    echo "Kvantum theme '$KVANTUM_THEME_NAME' not found in '$HOME_DIR/.config/Kvantum'. Attempting to copy it from system Kvantum themes..."
+    # Check if the Kvantum theme exists in system themes
+    if [ -d "/usr/share/Kvantum/$KVANTUM_THEME_NAME" ]; then
+        # Copy the Kvantum theme to user's Kvantum directory
+        mkdir -p "$HOME_DIR/.config/Kvantum"
+        cp -r "/usr/share/Kvantum/$KVANTUM_THEME_NAME" "$HOME_DIR/.config/Kvantum/"
+        echo "Kvantum theme '$KVANTUM_THEME_NAME' copied to '$HOME_DIR/.config/Kvantum'."
+    else
+        echo "Kvantum theme '$KVANTUM_THEME_NAME' not found in system Kvantum themes. Please install it or provide a valid Kvantum theme name."
+        exit 1
+    fi
+fi
 
 # Apply GTK theme settings via gsettings
 gsettings set org.gnome.desktop.interface gtk-theme "$THEME_NAME"
