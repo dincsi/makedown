@@ -33,6 +33,7 @@ Nordic [(GTK)](https://github.com/EliverLara/Nordic) | [(KDE)](https://github.co
 
 ![Colloid](doc/img/colloid.png.webp)
 Colloid [(GTK)](https://github.com/vinceliuice/Colloid-gtk-theme) | [(KDE)](https://github.com/vinceliuice/Colloid-kde)
+
 ![Dracula](doc/img/dracula.png.webp)
 Dracula [(GTK)](https://github.com/dracula/gtk) | [(KDE)](https://github.com/dracula/gtk/tree/master/kde/kvantum)
 
