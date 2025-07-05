@@ -2,15 +2,6 @@
 
 **A comprehensive theme management script that provides a unified theming experience across different desktop environments and applications on Linux systems.**
 
-![Colloid](doc/img/colloid.png.webp)
-*Example1: Colloid-Light theme applied consistently across GTK and Qt applications*
-
-![Nordic](doc/img/nordic.png.webp)
-*Example2: Nordic theme applied consistently across GTK and Qt applications*
-
-![Dracula](doc/img/dracula.png.webp)
-*Example3: Dracula theme applied consistently across GTK and Qt applications*
-
 ## Features
 
 **makedown** supports theming for:
@@ -37,10 +28,15 @@ For the most consistent experience, choose themes that explicitly mention suppor
 
 However, the following themes offer excellent compatibility and consistent appearance across all supported toolkits and environments.
 
-- Nordic [(GTK)](https://github.com/EliverLara/Nordic) | [(KDE)](https://github.com/EliverLara/Nordic/tree/master/kde/kvantum)
-- Colloid [(GTK)](https://github.com/vinceliuice/Colloid-gtk-theme) | [(KDE)](https://github.com/vinceliuice/Colloid-kde)
-- Dracula [(GTK)](https://github.com/dracula/gtk) | [(KDE)](https://github.com/dracula/gtk/tree/master/kde/kvantum)
-- WhiteSur [(GTK)](https://github.com/vinceliuice/WhiteSur-gtk-theme) | [(KDE)](https://github.com/vinceliuice/WhiteSur-kde)
+![Nordic](doc/img/nordic.png.webp)
+Nordic [(GTK)](https://github.com/EliverLara/Nordic) | [(KDE)](https://github.com/EliverLara/Nordic/tree/master/kde/kvantum)
+
+![Colloid](doc/img/colloid.png.webp)
+Colloid [(GTK)](https://github.com/vinceliuice/Colloid-gtk-theme) | [(KDE)](https://github.com/vinceliuice/Colloid-kde)
+![Dracula](doc/img/dracula.png.webp)
+Dracula [(GTK)](https://github.com/dracula/gtk) | [(KDE)](https://github.com/dracula/gtk/tree/master/kde/kvantum)
+
+or if you want Apple like desktop you can try WhiteSur [(GTK)](https://github.com/vinceliuice/WhiteSur-gtk-theme) | [(KDE)](https://github.com/vinceliuice/WhiteSur-kde)
 
 ## Prerequisites
 
